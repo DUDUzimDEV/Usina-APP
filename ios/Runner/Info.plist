@@ -66,5 +66,10 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+		<string>
+			A localização é utilizada para registrar
+			o local do acesso ao aplicativo.
+		</string>
 </dict>
 </plist>

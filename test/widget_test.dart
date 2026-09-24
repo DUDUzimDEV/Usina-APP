@@ -7,12 +7,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'package:usina_app/main.dart';
 
 void main() {
-  testWidgets('abre e fecha o submenu Cadastro', (WidgetTester tester) async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
+  setUp(() {
+    SharedPreferences.setMockInitialValues({});
+  });
+
+  testWidgets('deve abrir a tela de login quando não há sessão salva',
+      (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({'loginRealizado': false});
+
     await tester.pumpWidget(const UsinaApp());
+    await tester.pumpAndSettle();
+
+    expect(find.text('Login'), findsOneWidget);
+    expect(find.text('E-mail'), findsOneWidget);
+    expect(find.text('Senha'), findsOneWidget);
+  });
+
+  testWidgets('abre e fecha o submenu Cadastro na tela principal',
+      (WidgetTester tester) async {
+    SharedPreferences.setMockInitialValues({'loginRealizado': true});
+
+    await tester.pumpWidget(const UsinaApp());
+    await tester.pumpAndSettle();
 
     expect(find.text('Usina App'), findsOneWidget);
     await tester.tap(find.byTooltip('Open navigation menu'));
